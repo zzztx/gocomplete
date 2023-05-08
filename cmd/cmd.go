@@ -17,6 +17,7 @@ limitations under the License.
 package cmd
 
 import (
+	build "gocomplete/cmd/build"
 	complete "gocomplete/cmd/completion"
 	"log"
 	"os"
@@ -28,6 +29,7 @@ import (
 func init() {
 	streams := genericclioptions.IOStreams{In: os.Stdin, Out: os.Stdout, ErrOut: os.Stderr}
 	RootCmd.AddCommand(complete.NewCmdCompletion(streams))
+	RootCmd.AddCommand(build.NewCmdBuild(streams))
 }
 
 var RootCmd = &cobra.Command{
