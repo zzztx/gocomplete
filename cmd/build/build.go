@@ -1,6 +1,10 @@
 package build
 
 import (
+	"log"
+	"os"
+	"strings"
+
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
@@ -9,15 +13,23 @@ import (
 
 func NewCmdBuild(ioStreams genericclioptions.IOStreams) *cobra.Command {
 	shells := []string{}
-	shells = append(shells, "main.go")
+	files, err := os.ReadDir(".")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, file := range files {
+		if !file.IsDir() && strings.HasSuffix(file.Name(), "go") {
+			shells = append(shells, file.Name())
+		}
+	}
 	green := color.New(color.FgGreen).SprintFunc()
 
 	cmd := &cobra.Command{
-		Use:                   "completion SHELL",
+		Use:                   "build",
 		DisableFlagsInUseLine: true,
-		Short:                 green(i18n.T("go build main.go")),
-		Long:                  green(i18n.T("go build main.go")),
-		Example:               green(i18n.T("go build main.go")),
+		Short:                 green(i18n.T("go build file.go")),
+		Long:                  green(i18n.T("go build file.go")),
+		Example:               green(i18n.T("go build file.go")),
 		Run: func(cmd *cobra.Command, args []string) {
 		},
 		ValidArgs: shells,

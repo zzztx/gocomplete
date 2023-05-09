@@ -18,7 +18,21 @@ package cmd
 
 import (
 	build "gocomplete/cmd/build"
+	clean "gocomplete/cmd/clean"
 	complete "gocomplete/cmd/completion"
+	env "gocomplete/cmd/env"
+	fix "gocomplete/cmd/fix"
+	fmt "gocomplete/cmd/fmt"
+	generate "gocomplete/cmd/generate"
+	get "gocomplete/cmd/get"
+	install "gocomplete/cmd/install"
+	list "gocomplete/cmd/list"
+	mod "gocomplete/cmd/mod"
+	run "gocomplete/cmd/run"
+	test "gocomplete/cmd/test"
+	tool "gocomplete/cmd/tool"
+	version "gocomplete/cmd/version"
+	vet "gocomplete/cmd/vet"
 	"log"
 	"os"
 
@@ -30,6 +44,20 @@ func init() {
 	streams := genericclioptions.IOStreams{In: os.Stdin, Out: os.Stdout, ErrOut: os.Stderr}
 	RootCmd.AddCommand(complete.NewCmdCompletion(streams))
 	RootCmd.AddCommand(build.NewCmdBuild(streams))
+	RootCmd.AddCommand(get.NewCmdGet(streams))
+	RootCmd.AddCommand(run.NewCmdRun(streams))
+	RootCmd.AddCommand(version.NewCmdVersion(streams))
+	RootCmd.AddCommand(test.NewCmdTest(streams))
+	RootCmd.AddCommand(mod.NewCmdMod(streams))
+	RootCmd.AddCommand(list.NewCmdList(streams))
+	RootCmd.AddCommand(install.NewCmdInstall(streams))
+	RootCmd.AddCommand(tool.NewCmdTool(streams))
+	RootCmd.AddCommand(vet.NewCmdVet(streams))
+	RootCmd.AddCommand(clean.NewCmdClean(streams))
+	RootCmd.AddCommand(env.NewCmdEnv(streams))
+	RootCmd.AddCommand(fix.NewCmdFix(streams))
+	RootCmd.AddCommand(fmt.NewCmdFmt(streams))
+	RootCmd.AddCommand(generate.NewCmdGenerate(streams))
 }
 
 var RootCmd = &cobra.Command{

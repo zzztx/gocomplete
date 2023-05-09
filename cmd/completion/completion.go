@@ -19,6 +19,7 @@ package complete
 import (
 	"fmt"
 	"io"
+	"sort"
 
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
@@ -113,6 +114,7 @@ func NewCmdCompletion(ioStreams genericclioptions.IOStreams) *cobra.Command {
 	for s := range completionShells {
 		shells = append(shells, s)
 	}
+	sort.Strings(shells)
 	green := color.New(color.FgGreen).SprintFunc()
 
 	cmd := &cobra.Command{
@@ -162,5 +164,5 @@ func runCompletionFish(out io.Writer, kubectl *cobra.Command) error {
 }
 
 func runCompletionPwsh(out io.Writer, kubectl *cobra.Command) error {
-	return kubectl.GenPowerShellCompletionWithDesc(out)
+	return kubectl.GenPowerShellCompletion(out)
 }
