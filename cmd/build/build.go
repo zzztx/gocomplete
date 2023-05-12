@@ -3,6 +3,7 @@ package build
 import (
 	"log"
 	"os"
+	"sort"
 	"strings"
 
 	"github.com/fatih/color"
@@ -22,6 +23,7 @@ func NewCmdBuild(ioStreams genericclioptions.IOStreams) *cobra.Command {
 			shells = append(shells, file.Name())
 		}
 	}
+	sort.Strings(shells)
 	green := color.New(color.FgGreen).SprintFunc()
 
 	cmd := &cobra.Command{
